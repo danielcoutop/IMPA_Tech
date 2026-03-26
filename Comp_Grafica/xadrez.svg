@@ -1,0 +1,106 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- Cores -->  
+  <style>
+    :root {
+      --cor_1: black;
+      --cor_2: white;
+    }
+  </style>
+  <!-- Tabuleiro -->
+  <rect x="0" y="0" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="0" y="64" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="0" y="128" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="0" y="192" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="0" y="256" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="0" y="320" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="0" y="384" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="0" y="448" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="64" y="0" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="64" y="64" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="64" y="128" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="64" y="192" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="64" y="256" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="64" y="320" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="64" y="384" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="64" y="448" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="128" y="0" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="128" y="64" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="128" y="128" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="128" y="192" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="128" y="256" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="128" y="320" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="128" y="384" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="128" y="448" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="192" y="0" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="192" y="64" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="192" y="128" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="192" y="192" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="192" y="256" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="192" y="320" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="192" y="384" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="192" y="448" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="256" y="0" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="256" y="64" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="256" y="128" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="256" y="192" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="256" y="256" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="256" y="320" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="256" y="384" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="256" y="448" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="320" y="0" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="320" y="64" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="320" y="128" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="320" y="192" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="320" y="256" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="320" y="320" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="320" y="384" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="320" y="448" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="384" y="0" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="384" y="64" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="384" y="128" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="384" y="192" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="384" y="256" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="384" y="320" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="384" y="384" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="384" y="448" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="448" y="0" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="448" y="64" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="448" y="128" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="448" y="192" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="448" y="256" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="448" y="320" width="64" height="64" fill="var(--cor_2)" />
+  <rect x="448" y="384" width="64" height="64" fill="var(--cor_1)" />
+  <rect x="448" y="448" width="64" height="64" fill="var(--cor_2)" />
+
+  <!-- símbolo da linha -->
+  <symbol id="linha" viewBox="0 0 64 64">
+    <line x1="0" y1="0" x2="10" y2="0" />
+  </symbol>
+
+  <!-- Peão -->
+<symbol id="peao" viewBox="0 0 64 64">
+      <use href="#linha" x="20" y="51" transform = "translate(28.5,51) rotate(-60) scale(1) translate(-28.5,-51)"/>
+  </symbol>
+
+
+  <use href="#peao" x="0" y="384" width="64" height="64" stroke="#EAE2CD"/>
+  <use href="#peao" x="64" y="384" width="64" height="64" stroke="#EAE2CD" />
+  <use href="#peao" x="128" y="384" width="64" height="64" stroke="#EAE2CD" />
+  <use href="#peao" x="192" y="384" width="64" height="64" stroke="#EAE2CD"/>
+  <use href="#peao" x="256" y="384" width="64" height="64" stroke="#EAE2CD" />
+  <use href="#peao" x="320" y="384" width="64" height="64" stroke="#EAE2CD" />
+  <use href="#peao" x="384" y="384" width="64" height="64" stroke="#EAE2CD"/>
+  <use href="#peao" x="448" y="384" width="64" height="64" stroke="#EAE2CD" />
+  <use href="#peao" x="0" y="64" width="64" height="64" stroke="#5C6264"/>
+  <use href="#peao" x="64" y="64" width="64" height="64" stroke="#5C6264" />
+  <use href="#peao" x="128" y="64" width="64" height="64" stroke="#5C6264" />
+  <use href="#peao" x="192" y="64" width="64" height="64" stroke="#5C6264"/>
+  <use href="#peao" x="256" y="64" width="64" height="64" stroke="#5C6264" />
+  <use href="#peao" x="320" y="64" width="64" height="64" stroke="#5C6264" />
+  <use href="#peao" x="384" y="64" width="64" height="64" stroke="#5C6264"/>
+  <use href="#peao" x="448" y="64" width="64" height="64" stroke="#5C6264" />
+    
+
+
+</svg>
