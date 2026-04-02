@@ -312,16 +312,12 @@
 <!-- Dama 1-->
 <symbol id="dama_1" viewBox="0 0 64 64">
   <g transform="translate(32,32)">
-  </g>
-</symbol>
 
-<!-- Dama 2-->
-<symbol id="dama_2" viewBox="0 0 64 64">
-  <g transform="translate(32,32)">
     <!-- bolinhas-->
-  <circle cx="0" cy="-25" r="2" fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
-  <circle cx="0" cy="-18" r="5" fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
-
+  <circle cx="0" cy="-24" r="2" fill="" stroke="" stroke-width="0.2"/>
+  <circle cx="0" cy="-17" r="5" fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+    <!-- parte de baixo -->
     <path d="
       M 0 27
       L 20 27
@@ -333,18 +329,52 @@
       L 0 0 
     " fill="" stroke="" stroke-width="0.2"/>
 
+    <!-- parte de cima -->
     <path d="
       M 5 -4
       Q 5 -15 9 -18
       Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
     " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- detalhe do meio -->
+    <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.4"/>
+
+  <!-- reflexo -->
   <g transform="matrix(-1 0 0 1 0.2 0)">
     <path d="
-
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
     " fill="" stroke="" stroke-width="0.2"/>
     <path d="
-    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
-  </g>
+          M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
       <path d="
       M 0 0 
       L 8 0
@@ -355,10 +385,230 @@
       L 6.5 -2
       Q 8 -3 6.5 -4
       L 0 -4
-    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
-  </g>
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.4"/>
+      </g>
+        </g>
 </symbol>
 
+<!-- Dama 2-->
+<symbol id="dama_2" viewBox="0 0 64 64">
+  <g transform="translate(32,32)">
+
+    <!-- bolinhas-->
+  <circle cx="0" cy="-24" r="2" fill="" stroke="" stroke-width="0.2"/>
+  <circle cx="0" cy="-17" r="5" fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- parte de baixo -->
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- parte de cima -->
+    <path d="
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- detalhe do meio -->
+    <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.4"/>
+
+  <!-- reflexo -->
+  <g transform="matrix(-1 0 0 1 0.2 0)">
+    <path d="
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+          M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
+      <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.4"/>
+      </g>
+        </g>
+</symbol>
+
+  <!-- Bispo 1 -->
+<symbol id="bispo_1" viewBox="0 0 64 64">
+    <!-- boneco -->
+    <g transform="translate(32,32)">
+
+    <!-- cabeça -->
+    <circle cx="0" cy="12" r="8"/>
+    
+    <!-- corpo -->
+    <line x1="0" y1="20" x2="0" y2="24" stroke-width = "1"/>
+    
+    <!-- braços -->
+    <line x1="0" y1="22" x2="2.2" y2="23" stroke-width = "1"/>
+    <line x1="0" y1="22" x2="-2.2" y2="23" stroke-width = "1"/>
+    
+    <!-- pernas -->
+    <line x1="0" y1="24" x2="-2" y2="27" stroke-width = "1"/>
+    <line x1="0" y1="24" x2="2" y2="27" stroke-width = "1"/>
+  
+    <!-- chapéu -->
+    <path d="
+      M -9 9
+      Q 0 6 9 9
+      L 12 -3 
+      Q 9 -20 0 -27
+      Q -9 -20 -12 -3
+      L -9 9
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+    <!-- faixas -->
+    <path d="
+      M -9.3 8
+      Q 0 5 9.3 8
+      L 10.6 3
+      Q 0 0 -10.6 3
+      Z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <path d="
+      M -3 6
+      L 3 6
+      L 3 -24.3
+      Q 1.5 -26 0 -27
+      Q -1.5 -26 -3 -24.3
+      
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- cruz -->
+
+    <path d="
+      M 0.5 -3
+      L 0.5 -7 
+      L 2 -7
+      L 2 -8
+      L 0.5 -8
+      L 0.5 -10
+      L -0.5 -10
+      L -0.5 -8
+      L -2 -8
+      L -2 -7
+      L -0.5 -7
+      L -0.5 -3
+
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+  </g>
+  </symbol>
+
+  <!-- Bispo 2 -->
+<symbol id="bispo_2" viewBox="0 0 64 64">
+    <!-- boneco -->
+    <g transform="translate(32,32)">
+
+    <!-- cabeça -->
+    <circle cx="0" cy="12" r="8"/>
+    
+    <!-- corpo -->
+    <line x1="0" y1="20" x2="0" y2="24" stroke-width = "1"/>
+    
+    <!-- braços -->
+    <line x1="0" y1="22" x2="2.2" y2="23" stroke-width = "1"/>
+    <line x1="0" y1="22" x2="-2.2" y2="23" stroke-width = "1"/>
+    
+    <!-- pernas -->
+    <line x1="0" y1="24" x2="-2" y2="27" stroke-width = "1"/>
+    <line x1="0" y1="24" x2="2" y2="27" stroke-width = "1"/>
+  
+    <!-- chapéu -->
+    <path d="
+      M -9 9
+      Q 0 6 9 9
+      L 12 -3 
+      Q 9 -20 0 -27
+      Q -9 -20 -12 -3
+      L -9 9
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- faixas -->
+    <path d="
+      M -9.3 8
+      Q 0 5 9.3 8
+      L 10.6 3
+      Q 0 0 -10.6 3
+      Z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <path d="
+      M -3 6
+      L 3 6
+      L 3 -24.3
+      Q 1.5 -26 0 -27
+      Q -1.5 -26 -3 -24.3
+      
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- cruz -->
+
+    <path d="
+      M 0.5 -3
+      L 0.5 -7 
+      L 2 -7
+      L 2 -8
+      L 0.5 -8
+      L 0.5 -10
+      L -0.5 -10
+      L -0.5 -8
+      L -2 -8
+      L -2 -7
+      L -0.5 -7
+      L -0.5 -3
+
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+  </g>
+  </symbol>
+
+
+  <!--COLOCANDO PEÇAS NO TABULEIRO -->
+  
+  <!--PEÕES-->  
   <use href="#peao_1" x="0" y="384" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)"/>
   <use href="#peao_1" x="64" y="384" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
   <use href="#peao_1" x="128" y="384" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
@@ -401,17 +651,25 @@
        width="64" height="64"
        stroke="var(--cor_4)" fill="var(--cor_4)"/>
 
-
+<!-- TORRES -->
   <use href="#torre" x="0" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)"/>
   <use href="#torre" x="448" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)" />
   <use href="#torre" x="0" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)"/>
   <use href="#torre" x="448" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
 
+<!-- REIS -->
 <use href="#rei_1" x="256" y="448" width="64" height="64" stroke="var(--cor_3)" fill="var(--cor_3)"/>
 <use href="#rei_2" x="256" y="0" width="64" height="64" stroke="var(--cor_4)" fill="var(--cor_4)"/>
 
-<use href="#dama_2" x="192" y="448" width="64" height="64" stroke="var(--cor_3)" fill="var(--cor_3)"/>
-<use href="#dama_2" x="192" y="0" width="64" height="64" stroke="var(--cor_4)" fill=""/>
+<!-- DAMAS -->
+<use href="#dama_1" x="192" y="448" width="64" height="64" stroke="var(--cor_3)" fill="var(--cor_3)"/>
+<use href="#dama_2" x="192" y="0" width="64" height="64" stroke="var(--cor_4)" fill="var(--cor_4)"/>
+
+<!-- BISPOS -->
+  <use href="#bispo_2" x="64" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)"/>
+  <use href="#bispo_2" x="384" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)" />
+  <use href="#bispo_1" x="64" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)"/>
+  <use href="#bispo_1" x="384" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
 
 
 </svg>
