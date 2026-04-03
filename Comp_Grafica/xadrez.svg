@@ -3,12 +3,12 @@
   <!-- Cores -->  
   <style>
     :root {
-      --cor_1: black;
-      --cor_2: white;
-      --cor_3: blue;
-      --cor_4: green;
-      --cor_5: gold;
-      --cor_6: silver;
+      --cor_1: #163857;
+      --cor_2: #747BE0;
+      --cor_3: #ffffb9;
+      --cor_4: black;
+      --cor_5: silver;
+      --cor_6: gold;
     
     }
   </style>
@@ -166,8 +166,8 @@
 
 
 
-<!-- Torre-->
 
+<!-- Torre-->
 <symbol id="torre" viewBox="0 0 64 64">
   
   <g transform="translate(32,32)">
@@ -258,6 +258,7 @@
   </g>
 </symbol>
 
+
 <!-- Rei 2-->
 <symbol id="rei_2" viewBox="0 0 64 64">
   <g transform="translate(32,32)">
@@ -308,6 +309,8 @@
   </g>
   </g>
 </symbol>
+
+
 
 <!-- Dama 1-->
 <symbol id="dama_1" viewBox="0 0 64 64">
@@ -390,6 +393,7 @@
         </g>
 </symbol>
 
+
 <!-- Dama 2-->
 <symbol id="dama_2" viewBox="0 0 64 64">
   <g transform="translate(32,32)">
@@ -471,6 +475,8 @@
         </g>
 </symbol>
 
+
+
   <!-- Bispo 1 -->
 <symbol id="bispo_1" viewBox="0 0 64 64">
     <!-- boneco -->
@@ -537,6 +543,7 @@
     " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
   </g>
   </symbol>
+
 
   <!-- Bispo 2 -->
 <symbol id="bispo_2" viewBox="0 0 64 64">
@@ -606,6 +613,127 @@
   </symbol>
 
 
+
+<!-- Cavalo 1 -->
+<symbol id="cavalo_1" viewBox="0 0 64 64">
+    <!-- base -->
+    <g transform="translate(32,32)">
+
+    <!-- base de baixo -->
+    <path d="
+      M -20 27
+      L 20 27
+      Q 19 22 18 22
+      L -18 22
+      Q -19 22 -20 27
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+
+    <!-- base de cima -->
+    <path d="
+      M 18 22
+      C 19 17 15 19 15 15
+      L -15 15
+      C -15 19 -19 17 -18 22
+    " stroke-width="0.2"/>
+
+        <!-- detalhe de cima -->
+    <path d="
+      M 15 15
+      Q 16 14.5 15 14
+      L -15 14
+      Q -16 14.5 -15 15
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+    <!-- cavalo -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      Q -1 -24 -1 -20
+      L -6 -21
+      L -20 -12
+      L -17 -7
+      L -11 -8
+      L -11.5 -9.5
+      L -8.5 -10.5
+      Q -8 -8 -1 -9.5
+      C -1 -2 -13 -5 -13 14
+
+    " stroke-width="0.2"/>
+    
+    <!-- crina  -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      C 27 -22 6 4  11 14
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+
+  </g>
+  </symbol>  
+
+
+  <!-- Cavalo 2 -->
+<symbol id="cavalo_2" viewBox="0 0 64 64">
+    <!-- base -->
+    <g transform="translate(32,32)">
+
+    <!-- base de baixo -->
+    <path d="
+      M -20 27
+      L 20 27
+      Q 19 22 18 22
+      L -18 22
+      Q -19 22 -20 27
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- base de cima -->
+    <path d="
+      M 18 22
+      C 19 17 15 19 15 15
+      L -15 15
+      C -15 19 -19 17 -18 22
+    " stroke-width="0.2"/>
+
+    <!-- detalhe de cima -->
+    <path d="
+      M 15 15
+      Q 16 14.5 15 14
+      L -15 14
+      Q -16 14.5 -15 15
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- cavalo -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      Q -1 -24 -1 -20
+      L -6 -21
+      L -20 -12
+      L -17 -7
+      L -11 -8
+      L -11.5 -9.5
+      L -8.5 -10.5
+      Q -8 -8 -1 -9.5
+      C -1 -2 -13 -5 -13 14
+
+    " stroke-width="0.2"/>
+
+    <!-- crina  -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      C 27 -22 6 4  11 14
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+
+  </g>
+  </symbol>
+
+  
+
   <!--COLOCANDO PEÇAS NO TABULEIRO -->
   
   <!--PEÕES-->  
@@ -666,10 +794,14 @@
 <use href="#dama_2" x="192" y="0" width="64" height="64" stroke="var(--cor_4)" fill="var(--cor_4)"/>
 
 <!-- BISPOS -->
-  <use href="#bispo_2" x="64" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)"/>
-  <use href="#bispo_2" x="384" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)" />
-  <use href="#bispo_1" x="64" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)"/>
-  <use href="#bispo_1" x="384" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
+  <use href="#bispo_2" x="128" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)"/>
+  <use href="#bispo_2" x="320" y="0" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)" />
+  <use href="#bispo_1" x="128" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)"/>
+  <use href="#bispo_1" x="320" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
 
-
+<!-- CAVALOS -->
+  <use href="#cavalo_2" x="0" y="0" transform="translate(64,0) matrix(-1 0 0 1 64 0)" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)"/>
+  <use href="#cavalo_2" x="320" y="0" transform="translate(384,0) matrix(-1 0 0 1 384 0)" width="64" height="64" stroke="var(--cor_4)" fill = "var(--cor_4)" />
+  <use href="#cavalo_1" x="64" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)"/>
+  <use href="#cavalo_1" x="384" y="448" width="64" height="64" stroke="var(--cor_3)" fill = "var(--cor_3)" />
 </svg>
