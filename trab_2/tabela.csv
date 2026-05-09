@@ -1,0 +1,8 @@
+Modelo / Configuração,Parâmetros Treináveis (Est.),BLEU-4,Tempo/Época (Médio),num_pixels
+Emb 512 + CNN 4 (Melhor),~13.6M,1.915,1.42 min,49 (7×7)
+CNN 4 (Base c/ 4 blocos),~11.0M,1.866,1.22 min,49 (7×7)
+Baseline (3 blocos),~10.5M,1.850,1.55 min,196 (14×14)
+L2 (2 camadas LSTM),~12.6M,1.614,1.73 min,196 (14×14)
+H768 (Hidden 768),~15.8M,1.516,1.62 min,196 (14×14)
+Emb 512 (Só Embedding),~13.1M,1.483,1.60 min,196 (14×14)
+CNN 2 (Encoder raso),~10.0M,1.239,3.42 min,784 (28×28)
