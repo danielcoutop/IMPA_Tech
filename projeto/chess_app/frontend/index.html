@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Engine de Xadrez com Redes Neurais</title>
+<style>
+  :root {
+    --cor_1: #163857;
+    --cor_2: #747BE0;
+    --cor_3: #ffffb9;
+    --cor_4: black;
+    --cor_5: silver;
+    --cor_6: gold;
+    --bg: #1b1b22;
+    --panel: #25252f;
+    --accent: #7B9459;
+    --accent2: #C97B63;
+    --text: #F1F2D8;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .app {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .board-wrap {
+    position: relative;
+    width: min(512px, 92vw);
+    height: min(512px, 92vw);
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    overflow: hidden;
+    user-select: none;
+  }
+
+  #board-svg { width: 100%; height: 100%; display: block; }
+
+  .square-overlay {
+    position: absolute;
+    width: 12.5%;
+    height: 12.5%;
+    top: 0; left: 0;
+  }
+
+  .square-hl {
+    position: absolute;
+    width: 12.5%;
+    height: 12.5%;
+    pointer-events: none;
+  }
+
+  .hl-selected { background: rgba(255, 235, 59, 0.35); }
+  .hl-legal { background: rgba(76, 175, 80, 0.35); }
+  .hl-last { background: rgba(255, 152, 0, 0.30); }
+  .hl-check { background: rgba(244, 67, 54, 0.45); }
+
+  .piece-use { cursor: grab; }
+  .piece-use:active { cursor: grabbing; }
+
+  .panel {
+    width: 320px;
+    background: var(--panel);
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  h1 {
+    font-size: 1.15rem;
+    margin: 0 0 4px 0;
+    color: var(--text);
+  }
+  .subtitle {
+    font-size: 0.85rem;
+    color: #9a9aa3;
+    margin-bottom: 18px;
+  }
+
+  .status-line {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #1c1c24;
+    border-left: 4px solid var(--accent);
+  }
+  .status-line.alert { border-left-color: var(--accent2); }
+
+  .model-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  button {
+    font-family: inherit;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.1s ease;
+  }
+  button:active { transform: scale(0.97); }
+
+  .model-btn {
+    flex: 1;
+    background: #34343f;
+    color: var(--text);
+  }
+  .model-btn.active {
+    background: var(--accent);
+    color: #15170f;
+    font-weight: 600;
+  }
+  .model-btn:hover { filter: brightness(1.1); }
+
+  .secondary-btn {
+    width: 100%;
+    background: var(--accent2);
+    color: #2a160f;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .secondary-btn:hover { filter: brightness(1.08); }
+
+  .eval-bar-wrap {
+    margin-top: 18px;
+  }
+  .eval-label {
+    font-size: 0.8rem;
+    color: #9a9aa3;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .eval-bar-bg {
+    height: 14px;
+    border-radius: 7px;
+    background: #111;
+    overflow: hidden;
+    display: flex;
+  }
+  .eval-bar-black { background: #2b2b2b; height: 100%; }
+  .eval-bar-white { background: var(--text); height: 100%; }
+
+  .log {
+    margin-top: 18px;
+    font-size: 0.8rem;
+    color: #b9b9c2;
+    max-height: 140px;
+    overflow-y: auto;
+    border-top: 1px solid #38383f;
+    padding-top: 10px;
+  }
+  .log div { padding: 2px 0; }
+
+  .promo-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .promo-overlay.show { display: flex; }
+  .promo-box {
+    background: var(--panel);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .promo-box button {
+    background: var(--accent);
+    color: #15170f;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 14px 18px;
+  }
+
+  /* --------------------- Tela inicial de configuração --------------------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 14, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-overlay.hidden { display: none; }
+
+  .modal-card {
+    width: min(440px, 90vw);
+    background: var(--panel);
+    border-radius: 16px;
+    padding: 28px 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+
+  .modal-card h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.3rem;
+  }
+  .modal-card .modal-subtitle {
+    font-size: 0.85rem;
+    color: #9a9aa3;
+    margin-bottom: 22px;
+  }
+
+  .field-block { margin-bottom: 20px; }
+  .field-label {
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .field-label .value-pill {
+    background: #1c1c24;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+
+  .field-hint {
+    font-size: 0.72rem;
+    color: #75757f;
+    margin-top: 4px;
+  }
+
+  .start-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #15170f;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px;
+    margin-top: 6px;
+  }
+  .start-btn:hover { filter: brightness(1.08); }
+
+  .config-error {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    min-height: 1em;
+  }
+
+  /* ----------------------------- Fim de jogo ----------------------------- */
+  .endgame-card {
+    text-align: center;
+  }
+  .endgame-icon {
+    font-size: 2.6rem;
+    margin-bottom: 6px;
+  }
+  .endgame-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .endgame-detail {
+    font-size: 0.9rem;
+    color: #b9b9c2;
+    margin-bottom: 22px;
+  }
+
+  .app.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="app hidden" id="app-root">
+
+  <div class="board-wrap">
+    <svg id="board-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        :root {
+          --cor_1: #163857;
+          --cor_2: #747BE0;
+          --cor_3: #ffffb9;
+          --cor_4: black;
+          --cor_5: silver;
+          --cor_6: gold;
+        }
+      </style>
+
+      <!-- Tabuleiro -->
+      <g id="board-squares"></g>
+
+      <!-- Definições das peças (extraídas do xadrez.svg original) -->
+  <!-- Peão 1 -->
+<symbol id="peao_1" viewBox="0 0 64 64">
+    <!-- boneco -->
+    <g transform="translate(32,32)">
+    <!-- cabeça -->
+    <circle cx="0" cy="-20" r="7"/>
+    
+    <!-- corpo -->
+    <line x1="0" y1="-13" x2="0" y2="7" stroke-width = "2"/>
+    
+    <!-- braços -->
+    <line x1="0" y1="-7" x2="-12" y2="0" stroke-width = "2"/>
+    <line x1="0" y1="-7" x2="12" y2="3" stroke-width = "2"/>
+    
+    <!-- pernas -->
+    <line x1="0" y1="7" x2="-5" y2="27" stroke-width = "2"/>
+    <line x1="0" y1="7" x2="5" y2="27" stroke-width = "2"/>
+
+    <!-- lança -->
+    <g>
+      <line x1="12" y1="27" x2="12" y2="-14" stroke-width = "2"/>
+      <polygon points="9,-14 15,-14 12,-21" fill = 'var(--cor_5)' stroke = 'var(--cor_5)'/>
+    </g>
+  </g>
+  <g transform="translate(32,32)">
+  <!-- escudo -->
+    <path d="
+      M -12 -9
+      L-2 -6
+      L -5 6
+      L-12 10
+      L-19 6
+      L-22 -6
+      Z
+     "
+    fill=""
+    stroke="var(--cor_5)"
+    stroke-width="1"/>
+    </g>
+  </symbol>
+
+
+  <!-- Peão 2 -->
+<symbol id="peao_2" viewBox="0 0 64 64">
+    <!-- boneco -->
+    <g transform="translate(32,32)">
+    <!-- cabeça -->
+    <circle cx="0" cy="-20" r="7"/>
+    
+    <!-- corpo -->
+    <line x1="0" y1="-13" x2="0" y2="7" stroke-width = "2"/>
+    
+    <!-- braços -->
+    <line x1="0" y1="-7" x2="-12" y2="0" stroke-width = "2"/>
+    <line x1="0" y1="-7" x2="12" y2="3" stroke-width = "2"/>
+    
+    <!-- pernas -->
+    <line x1="0" y1="7" x2="-5" y2="27" stroke-width = "2"/>
+    <line x1="0" y1="7" x2="5" y2="27" stroke-width = "2"/>
+
+    <!-- lança -->
+    <g>
+      <line x1="12" y1="27" x2="12" y2="-14" stroke-width = "2"/>
+      <polygon points="9,-14 15,-14 12,-21" fill = 'var(--cor_6)' stroke = 'var(--cor_6)'/>
+    </g>
+  </g>
+  <g transform="translate(32,32)">
+  <!-- escudo -->
+    <path d="
+      M -12 -9
+      L-2 -6
+      L -5 6
+      L-12 10
+      L-19 6
+      L-22 -6
+      Z
+     "
+    fill=""
+    stroke="var(--cor_6)"
+    stroke-width="1"/>
+    </g>
+  </symbol>
+
+
+
+
+<!-- Torre-->
+<symbol id="torre" viewBox="0 0 64 64">
+  
+  <g transform="translate(32,32)">
+    <path d="
+      M -20 27
+      L 20 27
+      L 16 18
+      L 10 18
+      L 10 -20
+      L 14 -20
+      L 14 -27
+      L 10 -27
+      L 10 -23
+      L 6 -23
+      L 6 -27
+      L 2 -27
+      L 2 -23
+      L -2 -23
+      L -2 -27
+      L -6 -27
+      L -6 -23
+      L -10 -23
+      L -10 -27 
+      L -14 -27 
+      L -14 -20
+      L -10 -20
+      L -10 18
+      L -14 18
+      L -16 18
+     Z
+     "
+    fill=""
+    stroke=""
+    stroke-width="1"/>
+    </g>
+  </symbol>
+
+
+
+<!-- Rei 1-->
+<symbol id="rei_1" viewBox="0 0 64 64">
+  <g transform="translate(32,32)">
+    <!-- rei-->
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 -10
+      L 10 -10 
+      Q 10 -12 7 -15
+      L 0 -15
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+    M 1 -15.2
+    L 1 -21
+    Q  3 -21 4 -18 
+    L 4 -26 
+    Q 3 -23 1 -23
+    Q 1 -26 4 -27 
+    L 0 -27
+    L 0 -15.2
+    z
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+  <g transform="matrix(-1 0 0 1 0.2 0)">
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 -10
+      L 10 -10 
+      Q 10 -12 7 -15
+      L 0 -15.2
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+    M 1 -15.2
+    L 1 -21
+    Q  3 -21 4 -18 
+    L 4 -26 
+    Q 3 -23 1 -23
+    Q 1 -26 4 -27 
+    L 0 -27
+    L 0 -15.2
+    z
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+  </g>
+  </g>
+</symbol>
+
+
+<!-- Rei 2-->
+<symbol id="rei_2" viewBox="0 0 64 64">
+  <g transform="translate(32,32)">
+    <!-- rei-->
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 -10
+      L 10 -10 
+      Q 10 -12 7 -15
+      L 0 -15
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+    M 1 -15.2
+    L 1 -21
+    Q  3 -21 4 -18 
+    L 4 -26 
+    Q 3 -23 1 -23
+    Q 1 -26 4 -27 
+    L 0 -27
+    L 0 -15.2
+    z
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+  <g transform="matrix(-1 0 0 1 0.2 0)">
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 -10
+      L 10 -10 
+      Q 10 -12 7 -15
+      L 0 -15.2
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+    M 1 -15.2
+    L 1 -21
+    Q  3 -21 4 -18 
+    L 4 -26 
+    Q 3 -23 1 -23
+    Q 1 -26 4 -27 
+    L 0 -27
+    L 0 -15.2
+    z
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+  </g>
+  </g>
+</symbol>
+
+
+
+<!-- Dama 1-->
+<symbol id="dama_1" viewBox="0 0 64 64">
+  <g transform="translate(32,32)">
+
+    <!-- bolinhas-->
+  <circle cx="0" cy="-24" r="2" fill="" stroke="" stroke-width="0.2"/>
+  <circle cx="0" cy="-17" r="5" fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+    <!-- parte de baixo -->
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- parte de cima -->
+    <path d="
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- detalhe do meio -->
+    <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.4"/>
+
+  <!-- reflexo -->
+  <g transform="matrix(-1 0 0 1 0.2 0)">
+    <path d="
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+          M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
+      <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.4"/>
+      </g>
+        </g>
+</symbol>
+
+
+<!-- Dama 2-->
+<symbol id="dama_2" viewBox="0 0 64 64">
+  <g transform="translate(32,32)">
+
+    <!-- bolinhas-->
+  <circle cx="0" cy="-24" r="2" fill="" stroke="" stroke-width="0.2"/>
+  <circle cx="0" cy="-17" r="5" fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- parte de baixo -->
+    <path d="
+      M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- parte de cima -->
+    <path d="
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- detalhe do meio -->
+    <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.4"/>
+
+  <!-- reflexo -->
+  <g transform="matrix(-1 0 0 1 0.2 0)">
+    <path d="
+      M 5 -4
+      Q 5 -15 9 -18
+      Q 11 -22 7 -20
+      Q 5.55 -19.2 5 -18
+      C 3 -15 2 -19 0 -19
+      L 0 -4
+      z
+    " fill="" stroke="" stroke-width="0.2"/>
+    <path d="
+          M 0 27
+      L 20 27
+      Q 22 23 18 22
+      Q 19.5 19 16 17
+      Q 5 10 5 0
+      L 0 0 
+      L 0 27
+      L 0 0 
+    " fill="" stroke="" stroke-width="0.2"/>
+
+      <path d="
+      M 0 0 
+      L 8 0
+      Q 10 -1 8 -2
+      L 0 -2
+      L 0 0
+      L 0 -2
+      L 6.5 -2
+      Q 8 -3 6.5 -4
+      L 0 -4
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.4"/>
+      </g>
+        </g>
+</symbol>
+
+
+
+  <!-- Bispo 1 -->
+<symbol id="bispo_1" viewBox="0 0 64 64">
+    <!-- boneco -->
+    <g transform="translate(32,32)">
+
+    <!-- cabeça -->
+    <circle cx="0" cy="12" r="8"/>
+    
+    <!-- corpo -->
+    <line x1="0" y1="20" x2="0" y2="24" stroke-width = "1"/>
+    
+    <!-- braços -->
+    <line x1="0" y1="22" x2="2.2" y2="23" stroke-width = "1"/>
+    <line x1="0" y1="22" x2="-2.2" y2="23" stroke-width = "1"/>
+    
+    <!-- pernas -->
+    <line x1="0" y1="24" x2="-2" y2="27" stroke-width = "1"/>
+    <line x1="0" y1="24" x2="2" y2="27" stroke-width = "1"/>
+  
+    <!-- chapéu -->
+    <path d="
+      M -9 9
+      Q 0 6 9 9
+      L 12 -3 
+      Q 9 -20 0 -27
+      Q -9 -20 -12 -3
+      L -9 9
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+    <!-- faixas -->
+    <path d="
+      M -9.3 8
+      Q 0 5 9.3 8
+      L 10.6 3
+      Q 0 0 -10.6 3
+      Z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <path d="
+      M -3 6
+      L 3 6
+      L 3 -24.3
+      Q 1.5 -26 0 -27
+      Q -1.5 -26 -3 -24.3
+      
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- cruz -->
+
+    <path d="
+      M 0.5 -3
+      L 0.5 -7 
+      L 2 -7
+      L 2 -8
+      L 0.5 -8
+      L 0.5 -10
+      L -0.5 -10
+      L -0.5 -8
+      L -2 -8
+      L -2 -7
+      L -0.5 -7
+      L -0.5 -3
+
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+  </g>
+  </symbol>
+
+
+  <!-- Bispo 2 -->
+<symbol id="bispo_2" viewBox="0 0 64 64">
+    <!-- boneco -->
+    <g transform="translate(32,32)">
+
+    <!-- cabeça -->
+    <circle cx="0" cy="12" r="8"/>
+    
+    <!-- corpo -->
+    <line x1="0" y1="20" x2="0" y2="24" stroke-width = "1"/>
+    
+    <!-- braços -->
+    <line x1="0" y1="22" x2="2.2" y2="23" stroke-width = "1"/>
+    <line x1="0" y1="22" x2="-2.2" y2="23" stroke-width = "1"/>
+    
+    <!-- pernas -->
+    <line x1="0" y1="24" x2="-2" y2="27" stroke-width = "1"/>
+    <line x1="0" y1="24" x2="2" y2="27" stroke-width = "1"/>
+  
+    <!-- chapéu -->
+    <path d="
+      M -9 9
+      Q 0 6 9 9
+      L 12 -3 
+      Q 9 -20 0 -27
+      Q -9 -20 -12 -3
+      L -9 9
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- faixas -->
+    <path d="
+      M -9.3 8
+      Q 0 5 9.3 8
+      L 10.6 3
+      Q 0 0 -10.6 3
+      Z
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <path d="
+      M -3 6
+      L 3 6
+      L 3 -24.3
+      Q 1.5 -26 0 -27
+      Q -1.5 -26 -3 -24.3
+      
+    " fill="" stroke="" stroke-width="0.2"/>
+
+    <!-- cruz -->
+
+    <path d="
+      M 0.5 -3
+      L 0.5 -7 
+      L 2 -7
+      L 2 -8
+      L 0.5 -8
+      L 0.5 -10
+      L -0.5 -10
+      L -0.5 -8
+      L -2 -8
+      L -2 -7
+      L -0.5 -7
+      L -0.5 -3
+
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+  </g>
+  </symbol>
+
+
+
+<!-- Cavalo 1 -->
+<symbol id="cavalo_1" viewBox="0 0 64 64">
+    <!-- base -->
+    <g transform="translate(32,32)">
+
+    <!-- base de baixo -->
+    <path d="
+      M -20 27
+      L 20 27
+      Q 19 22 18 22
+      L -18 22
+      Q -19 22 -20 27
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+
+    <!-- base de cima -->
+    <path d="
+      M 18 22
+      C 19 17 15 19 15 15
+      L -15 15
+      C -15 19 -19 17 -18 22
+    " stroke-width="0.2"/>
+
+        <!-- detalhe de cima -->
+    <path d="
+      M 15 15
+      Q 16 14.5 15 14
+      L -15 14
+      Q -16 14.5 -15 15
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+    
+    <!-- cavalo -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      Q -1 -24 -1 -20
+      L -6 -21
+      L -20 -12
+      L -17 -7
+      L -11 -8
+      L -11.5 -9.5
+      L -8.5 -10.5
+      Q -8 -8 -1 -9.5
+      C -1 -2 -13 -5 -13 14
+
+    " stroke-width="0.2"/>
+    
+    <!-- crina  -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      C 27 -22 6 4  11 14
+    " fill="var(--cor_5)" stroke="var(--cor_5)" stroke-width="0.2"/>
+
+  </g>
+  </symbol>  
+
+
+  <!-- Cavalo 2 -->
+<symbol id="cavalo_2" viewBox="0 0 64 64">
+    <!-- base -->
+    <g transform="translate(32,32)">
+
+    <!-- base de baixo -->
+    <path d="
+      M -20 27
+      L 20 27
+      Q 19 22 18 22
+      L -18 22
+      Q -19 22 -20 27
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- base de cima -->
+    <path d="
+      M 18 22
+      C 19 17 15 19 15 15
+      L -15 15
+      C -15 19 -19 17 -18 22
+    " stroke-width="0.2"/>
+
+    <!-- detalhe de cima -->
+    <path d="
+      M 15 15
+      Q 16 14.5 15 14
+      L -15 14
+      Q -16 14.5 -15 15
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+    
+    <!-- cavalo -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      Q -1 -24 -1 -20
+      L -6 -21
+      L -20 -12
+      L -17 -7
+      L -11 -8
+      L -11.5 -9.5
+      L -8.5 -10.5
+      Q -8 -8 -1 -9.5
+      C -1 -2 -13 -5 -13 14
+
+    " stroke-width="0.2"/>
+
+    <!-- crina  -->
+    <path d="
+      M 13 14
+      C 8 4 29 -24 -3 -27
+      L -4 -25
+      C 27 -22 6 4  11 14
+    " fill="var(--cor_6)" stroke="var(--cor_6)" stroke-width="0.2"/>
+
+  </g>
+  </symbol>
+
+
+      <!-- Peças posicionadas dinamicamente via JS -->
+      <g id="pieces-layer"></g>
+    </svg>
+
+    <div id="highlight-layer"></div>
+    <div id="overlay-layer"></div>
+  </div>
+
+  <div class="panel">
+    <h1>Engine de Xadrez Neural</h1>
+    <div class="subtitle">Você joga de Brancas. A IA joga de Pretas.</div>
+
+    <div class="status-line" id="status-line">Sua vez de jogar.</div>
+    <div class="field-hint" id="stats-line" style="margin-bottom: 14px;"></div>
+
+    <div class="model-toggle">
+      <button class="model-btn active" id="btn-cnn" onclick="setModel('cnn')">CNN Simples</button>
+      <button class="model-btn" id="btn-resnet" onclick="setModel('resnet')">ResNet</button>
+    </div>
+
+    <button class="secondary-btn" onclick="newGame()">Nova Partida</button>
+
+    <div class="eval-bar-wrap">
+      <div class="eval-label">
+        <span>Pretas</span>
+        <span id="eval-value">0 cp</span>
+        <span>Brancas</span>
+      </div>
+      <div class="eval-bar-bg">
+        <div class="eval-bar-black" id="eval-black" style="width:50%"></div>
+        <div class="eval-bar-white" id="eval-white" style="width:50%"></div>
+      </div>
+    </div>
+
+    <div class="log" id="log"></div>
+  </div>
+
+</div>
+
+<div class="promo-overlay" id="promo-overlay">
+  <div class="promo-box">
+    <button onclick="resolvePromotion('q')">Dama</button>
+    <button onclick="resolvePromotion('r')">Torre</button>
+    <button onclick="resolvePromotion('b')">Bispo</button>
+    <button onclick="resolvePromotion('n')">Cavalo</button>
+  </div>
+</div>
+
+<!-- ============================ TELA INICIAL ============================ -->
+<div class="modal-overlay" id="start-screen">
+  <div class="modal-card">
+    <h2>Engine de Xadrez Neural</h2>
+    <div class="modal-subtitle">Configure a partida. Você joga de Brancas, a IA joga de Pretas.</div>
+
+    <div class="field-block">
+      <div class="field-label"><span>Rede neural</span></div>
+      <div class="model-toggle">
+        <button class="model-btn active" id="start-btn-cnn" onclick="selectStartModel('cnn')">CNN Simples</button>
+        <button class="model-btn" id="start-btn-resnet" onclick="selectStartModel('resnet')">ResNet</button>
+      </div>
+    </div>
+
+    <div class="field-block">
+      <div class="field-label">
+        <span>Profundidade de busca (alpha-beta)</span>
+        <span class="value-pill" id="depth-value">3</span>
+      </div>
+      <input type="range" id="depth-slider" min="1" max="6" value="3" step="1"
+             oninput="document.getElementById('depth-value').textContent = this.value">
+      <div class="field-hint">Mais profundidade = jogo mais forte, porém mais lento por lance.</div>
+    </div>
+
+    <div class="field-block">
+      <div class="field-label">
+        <span>Tempo máximo de reflexão da IA</span>
+        <span class="value-pill" id="time-value">5.0s</span>
+      </div>
+      <input type="range" id="time-slider" min="0.5" max="30" value="5" step="0.5"
+             oninput="document.getElementById('time-value').textContent = parseFloat(this.value).toFixed(1) + 's'">
+      <div class="field-hint">A IA usa aprofundamento iterativo: sempre devolve o melhor lance encontrado até o tempo esgotar.</div>
+    </div>
+
+    <button class="start-btn" onclick="startGame()">Iniciar Partida</button>
+    <div class="config-error" id="start-error"></div>
+  </div>
+</div>
+
+<!-- ============================ FIM DE JOGO ============================== -->
+<div class="modal-overlay hidden" id="endgame-screen">
+  <div class="modal-card endgame-card">
+    <div class="endgame-icon" id="endgame-icon">🏁</div>
+    <div class="endgame-title" id="endgame-title">Fim de jogo</div>
+    <div class="endgame-detail" id="endgame-detail"></div>
+    <button class="start-btn" onclick="backToStartScreen()">Jogar novamente</button>
+  </div>
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// Configuração geral
+// ---------------------------------------------------------------------------
+const SQUARE = 64; // px no viewBox 512x512
+const FILES = ["a","b","c","d","e","f","g","h"];
+
+// Cores do tabuleiro (mesmo padrão do SVG original)
+const COLOR_LIGHT = "var(--cor_2)";
+const COLOR_DARK = "var(--cor_1)";
+
+// Mapeia peça FEN -> {symbolId, fillVar, strokeVar}
+// Peças "_1" / cor_3 (creme) = Brancas | Peças "_2" / cor_4 (preto) = Pretas
+const PIECE_MAP = {
+  "P": { id: "peao_1", color: "var(--cor_3)" },
+  "N": { id: "cavalo_1", color: "var(--cor_3)" },
+  "B": { id: "bispo_1", color: "var(--cor_3)" },
+  "R": { id: "torre",   color: "var(--cor_3)" },
+  "Q": { id: "dama_1",  color: "var(--cor_3)" },
+  "K": { id: "rei_1",   color: "var(--cor_3)" },
+  "p": { id: "peao_2", color: "var(--cor_4)" },
+  "n": { id: "cavalo_2", color: "var(--cor_4)" },
+  "b": { id: "bispo_2", color: "var(--cor_4)" },
+  "r": { id: "torre",   color: "var(--cor_4)" },
+  "q": { id: "dama_2",  color: "var(--cor_4)" },
+  "k": { id: "rei_2",   color: "var(--cor_4)" },
+};
+
+let gameState = {
+  fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  turn: "white",
+  game_over: false,
+};
+
+let selectedSquare = null;
+let legalTargets = [];
+let lastMove = null;
+let pendingPromotion = null; // {from, to}
+let currentModel = "cnn";
+let startScreenModel = "cnn";
+let isThinking = false;
+let endgameShown = false;
+
+// ---------------------------------------------------------------------------
+// Construção do tabuleiro (casas)
+// ---------------------------------------------------------------------------
+function squareToXY(square) {
+  // square ex: "e4" -> coordenadas no viewBox, considerando a8 no topo-esquerdo
+  const file = FILES.indexOf(square[0]);
+  const rank = parseInt(square[1], 10);
+  const x = file * SQUARE;
+  const y = (8 - rank) * SQUARE;
+  return { x, y };
+}
+
+function buildBoardSquares() {
+  const g = document.getElementById("board-squares");
+  g.innerHTML = "";
+  for (let rank = 8; rank >= 1; rank--) {
+    for (let f = 0; f < 8; f++) {
+      const isLight = (f + rank) % 2 === 0;
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", f * SQUARE);
+      rect.setAttribute("y", (8 - rank) * SQUARE);
+      rect.setAttribute("width", SQUARE);
+      rect.setAttribute("height", SQUARE);
+      rect.setAttribute("fill", isLight ? COLOR_LIGHT : COLOR_DARK);
+      g.appendChild(rect);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// FEN -> peças renderizadas
+// ---------------------------------------------------------------------------
+function parseFenBoard(fen) {
+  const placement = fen.split(" ")[0];
+  const rows = placement.split("/");
+  const board = {}; // square -> letra da peça
+  for (let r = 0; r < 8; r++) {
+    const rank = 8 - r;
+    let file = 0;
+    for (const ch of rows[r]) {
+      if (/\d/.test(ch)) {
+        file += parseInt(ch, 10);
+      } else {
+        const square = FILES[file] + rank;
+        board[square] = ch;
+        file += 1;
+      }
+    }
+  }
+  return board;
+}
+
+function renderPieces() {
+  const layer = document.getElementById("pieces-layer");
+  layer.innerHTML = "";
+  const board = parseFenBoard(gameState.fen);
+
+  for (const square in board) {
+    const letter = board[square];
+    const info = PIECE_MAP[letter];
+    if (!info) continue;
+
+    const { x, y } = squareToXY(square);
+    const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#" + info.id);
+    use.setAttribute("href", "#" + info.id);
+    use.setAttribute("x", x);
+    use.setAttribute("y", y);
+    use.setAttribute("width", SQUARE);
+    use.setAttribute("height", SQUARE);
+    use.setAttribute("fill", info.color);
+    use.setAttribute("stroke", info.color);
+    use.classList.add("piece-use");
+    use.dataset.square = square;
+    use.addEventListener("click", () => onSquareClick(square));
+    layer.appendChild(use);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Overlay de cliques (uma div transparente por casa, sempre por cima)
+// ---------------------------------------------------------------------------
+function buildClickOverlay() {
+  const overlay = document.getElementById("overlay-layer");
+  overlay.innerHTML = "";
+  for (let rank = 8; rank >= 1; rank--) {
+    for (let f = 0; f < 8; f++) {
+      const square = FILES[f] + rank;
+      const div = document.createElement("div");
+      div.className = "square-overlay";
+      div.style.left = (f * 12.5) + "%";
+      div.style.top = ((8 - rank) * 12.5) + "%";
+      div.dataset.square = square;
+      div.addEventListener("click", () => onSquareClick(square));
+      overlay.appendChild(div);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Realces (seleção, lances legais, último lance)
+// ---------------------------------------------------------------------------
+function renderHighlights() {
+  const hl = document.getElementById("highlight-layer");
+  hl.innerHTML = "";
+
+  function addHL(square, cls) {
+    const { x, y } = squareToXY(square);
+    const div = document.createElement("div");
+    div.className = "square-hl " + cls;
+    div.style.left = (x / 512 * 100) + "%";
+    div.style.top = (y / 512 * 100) + "%";
+    hl.appendChild(div);
+  }
+
+  if (lastMove) {
+    addHL(lastMove.slice(0, 2), "hl-last");
+    addHL(lastMove.slice(2, 4), "hl-last");
+  }
+  if (selectedSquare) {
+    addHL(selectedSquare, "hl-selected");
+  }
+  legalTargets.forEach(sq => addHL(sq, "hl-legal"));
+}
+
+// ---------------------------------------------------------------------------
+// Interação: clique para selecionar e mover
+// ---------------------------------------------------------------------------
+async function onSquareClick(square) {
+  if (isThinking || gameState.game_over || gameState.turn !== "white") return;
+
+  if (selectedSquare === null) {
+    const moves = await fetchLegalMoves(square);
+    if (moves.length === 0) return; // não há peça branca móvel aqui
+    selectedSquare = square;
+    legalTargets = moves.map(m => m.slice(2, 4));
+    renderHighlights();
+    return;
+  }
+
+  if (square === selectedSquare) {
+    selectedSquare = null;
+    legalTargets = [];
+    renderHighlights();
+    return;
+  }
+
+  if (legalTargets.includes(square)) {
+    const uci = selectedSquare + square;
+    const board = parseFenBoard(gameState.fen);
+    const movingPiece = board[selectedSquare];
+    const isPromotion = movingPiece === "P" && square[1] === "8";
+
+    selectedSquare = null;
+    legalTargets = [];
+    renderHighlights();
+
+    if (isPromotion) {
+      pendingPromotion = { uci };
+      document.getElementById("promo-overlay").classList.add("show");
+      return;
+    }
+
+    await sendPlayerMove(uci);
+  } else {
+    // clicou em outra casa: tenta re-selecionar
+    const moves = await fetchLegalMoves(square);
+    if (moves.length > 0) {
+      selectedSquare = square;
+      legalTargets = moves.map(m => m.slice(2, 4));
+    } else {
+      selectedSquare = null;
+      legalTargets = [];
+    }
+    renderHighlights();
+  }
+}
+
+function resolvePromotion(piece) {
+  document.getElementById("promo-overlay").classList.remove("show");
+  if (!pendingPromotion) return;
+  const uci = pendingPromotion.uci + piece;
+  pendingPromotion = null;
+  sendPlayerMove(uci);
+}
+
+// ---------------------------------------------------------------------------
+// Chamadas à API
+// ---------------------------------------------------------------------------
+async function fetchLegalMoves(square) {
+  const res = await fetch(`/api/legal_moves?square=${square}`);
+  const data = await res.json();
+  return data.moves || [];
+}
+
+async function sendPlayerMove(uci) {
+  isThinking = true;
+  setStatus("IA pensando...", false);
+
+  try {
+    const res = await fetch("/api/player_move", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ move: uci }),
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      setStatus("Erro: " + data.error, true);
+      isThinking = false;
+      return;
+    }
+
+    let logLine = "Você: " + data.player_move;
+    if (data.engine_move) logLine += " | IA: " + data.engine_move;
+    addLog(logLine);
+
+    gameState = data.state;
+    lastMove = data.state.last_move;
+    renderPieces();
+    renderHighlights();
+    updateEvalBar(data.state.engine_eval);
+    updateSearchStats(data.state.search_stats);
+    updateStatusFromState();
+    maybeShowEndgame();
+  } catch (e) {
+    setStatus("Falha ao comunicar com o servidor.", true);
+  }
+
+  isThinking = false;
+}
+
+async function setModel(name) {
+  currentModel = name;
+  document.getElementById("btn-cnn").classList.toggle("active", name === "cnn");
+  document.getElementById("btn-resnet").classList.toggle("active", name === "resnet");
+
+  const res = await fetch("/api/set_model", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ model: name }),
+  });
+  const data = await res.json();
+  if (data.error) {
+    setStatus("Erro ao carregar modelo: " + data.error, true);
+  } else {
+    addLog("Modelo trocado para: " + (name === "cnn" ? "CNN Simples" : "ResNet"));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Tela inicial (configuração da partida)
+// ---------------------------------------------------------------------------
+function selectStartModel(name) {
+  startScreenModel = name;
+  document.getElementById("start-btn-cnn").classList.toggle("active", name === "cnn");
+  document.getElementById("start-btn-resnet").classList.toggle("active", name === "resnet");
+}
+
+async function loadConfigLimits() {
+  try {
+    const res = await fetch("/api/config");
+    const cfg = await res.json();
+
+    const depthSlider = document.getElementById("depth-slider");
+    depthSlider.min = cfg.min_depth;
+    depthSlider.max = cfg.max_depth;
+    depthSlider.value = cfg.default_depth;
+    document.getElementById("depth-value").textContent = cfg.default_depth;
+
+    const timeSlider = document.getElementById("time-slider");
+    timeSlider.min = cfg.min_time_limit;
+    timeSlider.max = cfg.max_time_limit;
+    timeSlider.value = cfg.default_time_limit;
+    document.getElementById("time-value").textContent = parseFloat(cfg.default_time_limit).toFixed(1) + "s";
+  } catch (e) {
+    // mantém os defaults definidos no HTML caso a API não responda
+  }
+}
+
+async function startGame() {
+  const depth = parseInt(document.getElementById("depth-slider").value, 10);
+  const timeLimit = parseFloat(document.getElementById("time-slider").value);
+  const errorEl = document.getElementById("start-error");
+  errorEl.textContent = "";
+
+  try {
+    const res = await fetch("/api/new_game", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: startScreenModel, depth: depth, time_limit: timeLimit }),
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      errorEl.textContent = data.error;
+      return;
+    }
+
+    currentModel = startScreenModel;
+    document.getElementById("btn-cnn").classList.toggle("active", currentModel === "cnn");
+    document.getElementById("btn-resnet").classList.toggle("active", currentModel === "resnet");
+
+    gameState = data;
+    lastMove = null;
+    selectedSquare = null;
+    legalTargets = [];
+    endgameShown = false;
+    document.getElementById("log").innerHTML = "";
+    document.getElementById("stats-line").textContent = "";
+
+    document.getElementById("start-screen").classList.add("hidden");
+    document.getElementById("endgame-screen").classList.add("hidden");
+    document.getElementById("app-root").classList.remove("hidden");
+
+    renderPieces();
+    renderHighlights();
+    updateEvalBar(0);
+    setStatus(`Partida iniciada (profundidade ${depth}, ${timeLimit.toFixed(1)}s/lance). Sua vez.`, false);
+  } catch (e) {
+    errorEl.textContent = "Não foi possível conectar ao servidor.";
+  }
+}
+
+function backToStartScreen() {
+  document.getElementById("endgame-screen").classList.add("hidden");
+  document.getElementById("app-root").classList.add("hidden");
+  document.getElementById("start-error").textContent = "";
+  document.getElementById("start-screen").classList.remove("hidden");
+}
+
+async function newGame() {
+  // Botão "Nova Partida" dentro do painel: volta para a tela de configuração
+  backToStartScreen();
+}
+
+// ---------------------------------------------------------------------------
+// UI helpers
+// ---------------------------------------------------------------------------
+function setStatus(text, isAlert) {
+  const el = document.getElementById("status-line");
+  el.textContent = text;
+  el.classList.toggle("alert", !!isAlert);
+}
+
+function updateStatusFromState() {
+  if (gameState.status === "checkmate") {
+    const winner = gameState.turn === "white" ? "Pretas" : "Brancas";
+    setStatus(`Xeque-mate! Vitória das ${winner}.`, true);
+  } else if (gameState.status === "stalemate") {
+    setStatus("Empate por afogamento (stalemate).", true);
+  } else if (gameState.status === "draw_material") {
+    setStatus("Empate: material insuficiente.", true);
+  } else if (gameState.status === "draw_repetition") {
+    setStatus("Empate por repetição.", true);
+  } else if (gameState.status === "check") {
+    setStatus("Xeque! Sua vez.", true);
+  } else {
+    setStatus("Sua vez de jogar.", false);
+  }
+}
+
+function updateSearchStats(stats) {
+  const el = document.getElementById("stats-line");
+  if (!stats) { el.textContent = ""; return; }
+  el.textContent = `IA: profundidade ${stats.depth_reached} · ${stats.nodes.toLocaleString("pt-BR")} nós · ${stats.time_s}s`;
+}
+
+function updateEvalBar(cp) {
+  if (cp === null || cp === undefined) cp = 0;
+  document.getElementById("eval-value").textContent = Math.round(cp) + " cp";
+  // mapeia cp (~-1000..1000) para 0-100% de forma suave
+  const clamped = Math.max(-800, Math.min(800, cp));
+  const whitePct = 50 + (clamped / 800) * 50;
+  document.getElementById("eval-white").style.width = whitePct + "%";
+  document.getElementById("eval-black").style.width = (100 - whitePct) + "%";
+}
+
+function addLog(text) {
+  const log = document.getElementById("log");
+  const div = document.createElement("div");
+  div.textContent = text;
+  log.prepend(div);
+}
+
+// ---------------------------------------------------------------------------
+// Modal de fim de jogo
+// ---------------------------------------------------------------------------
+function maybeShowEndgame() {
+  if (!gameState.game_over || endgameShown) return;
+  endgameShown = true;
+
+  let icon = "🏁";
+  let title = "Fim de jogo";
+  let detail = "";
+
+  if (gameState.status === "checkmate") {
+    // gameState.turn é quem teria a próxima jogada, ou seja, quem está em xeque-mate
+    const loserIsWhite = gameState.turn === "white";
+    if (loserIsWhite) {
+      icon = "😞"; title = "Você perdeu"; detail = "Xeque-mate da IA (Pretas).";
+    } else {
+      icon = "🎉"; title = "Você venceu!"; detail = "Xeque-mate nas Pretas. Parabéns!";
+    }
+  } else if (gameState.status === "stalemate") {
+    icon = "🤝"; title = "Empate"; detail = "Afogamento (stalemate): o lado a jogar não tem lances legais, mas não está em xeque.";
+  } else if (gameState.status === "draw_material") {
+    icon = "🤝"; title = "Empate"; detail = "Material insuficiente para qualquer lado dar xeque-mate.";
+  } else if (gameState.status === "draw_repetition") {
+    icon = "🤝"; title = "Empate"; detail = "Posição repetida três vezes.";
+  } else {
+    detail = "A partida terminou.";
+  }
+
+  document.getElementById("endgame-icon").textContent = icon;
+  document.getElementById("endgame-title").textContent = title;
+  document.getElementById("endgame-detail").textContent = detail;
+  document.getElementById("endgame-screen").classList.remove("hidden");
+}
+
+// ---------------------------------------------------------------------------
+// Inicialização
+// ---------------------------------------------------------------------------
+async function init() {
+  buildBoardSquares();
+  buildClickOverlay();
+  await loadConfigLimits();
+  // A tela inicial já começa visível (ver HTML); o jogo só é buscado
+  // do backend depois que o usuário clicar em "Iniciar Partida".
+}
+
+init();
+</script>
+
+</body>
+</html>
