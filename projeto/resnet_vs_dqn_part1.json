@@ -1,0 +1,1172 @@
+[
+  {
+    "game_idx": 2,
+    "white_model": "dqn",
+    "black_model": "resnet",
+    "opening_uci": [
+      "e2e4",
+      "e7e5"
+    ],
+    "num_plies": 50,
+    "termination": "CHECKMATE",
+    "winner": "black",
+    "winner_model": "resnet",
+    "total_seconds": 1670.4,
+    "moves": [
+      {
+        "san": "c3",
+        "uci": "c2c3",
+        "by": "dqn",
+        "seconds": 56.8
+      },
+      {
+        "san": "Nf6",
+        "uci": "g8f6",
+        "by": "resnet",
+        "seconds": 23.08
+      },
+      {
+        "san": "Qb3",
+        "uci": "d1b3",
+        "by": "dqn",
+        "seconds": 40.67
+      },
+      {
+        "san": "Nxe4",
+        "uci": "f6e4",
+        "by": "resnet",
+        "seconds": 42.36
+      },
+      {
+        "san": "Qxf7+",
+        "uci": "b3f7",
+        "by": "dqn",
+        "seconds": 51.72
+      },
+      {
+        "san": "Kxf7",
+        "uci": "e8f7",
+        "by": "resnet",
+        "seconds": 0.0
+      },
+      {
+        "san": "Be2",
+        "uci": "f1e2",
+        "by": "dqn",
+        "seconds": 20.52
+      },
+      {
+        "san": "Qg5",
+        "uci": "d8g5",
+        "by": "resnet",
+        "seconds": 77.19
+      },
+      {
+        "san": "h3",
+        "uci": "h2h3",
+        "by": "dqn",
+        "seconds": 23.66
+      },
+      {
+        "san": "Qxg2",
+        "uci": "g5g2",
+        "by": "resnet",
+        "seconds": 114.22
+      },
+      {
+        "san": "Bf1",
+        "uci": "e2f1",
+        "by": "dqn",
+        "seconds": 20.18
+      },
+      {
+        "san": "Qxf2+",
+        "uci": "g2f2",
+        "by": "resnet",
+        "seconds": 42.23
+      },
+      {
+        "san": "Kd1",
+        "uci": "e1d1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Qxf1+",
+        "uci": "f2f1",
+        "by": "resnet",
+        "seconds": 63.81
+      },
+      {
+        "san": "Kc2",
+        "uci": "d1c2",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Ng3",
+        "uci": "e4g3",
+        "by": "resnet",
+        "seconds": 76.5
+      },
+      {
+        "san": "Ne2",
+        "uci": "g1e2",
+        "by": "dqn",
+        "seconds": 12.83
+      },
+      {
+        "san": "Nxh1",
+        "uci": "g3h1",
+        "by": "resnet",
+        "seconds": 46.21
+      },
+      {
+        "san": "h4",
+        "uci": "h3h4",
+        "by": "dqn",
+        "seconds": 9.91
+      },
+      {
+        "san": "Qxe2",
+        "uci": "f1e2",
+        "by": "resnet",
+        "seconds": 81.32
+      },
+      {
+        "san": "Na3",
+        "uci": "b1a3",
+        "by": "dqn",
+        "seconds": 3.84
+      },
+      {
+        "san": "Bxa3",
+        "uci": "f8a3",
+        "by": "resnet",
+        "seconds": 31.1
+      },
+      {
+        "san": "Kb3",
+        "uci": "c2b3",
+        "by": "dqn",
+        "seconds": 4.06
+      },
+      {
+        "san": "Be7",
+        "uci": "a3e7",
+        "by": "resnet",
+        "seconds": 63.0
+      },
+      {
+        "san": "Rb1",
+        "uci": "a1b1",
+        "by": "dqn",
+        "seconds": 6.65
+      },
+      {
+        "san": "Qd3",
+        "uci": "e2d3",
+        "by": "resnet",
+        "seconds": 60.75
+      },
+      {
+        "san": "Ra1",
+        "uci": "b1a1",
+        "by": "dqn",
+        "seconds": 2.56
+      },
+      {
+        "san": "h5",
+        "uci": "h7h5",
+        "by": "resnet",
+        "seconds": 60.68
+      },
+      {
+        "san": "a3",
+        "uci": "a2a3",
+        "by": "dqn",
+        "seconds": 2.44
+      },
+      {
+        "san": "Qf3",
+        "uci": "d3f3",
+        "by": "resnet",
+        "seconds": 47.87
+      },
+      {
+        "san": "Ka2",
+        "uci": "b3a2",
+        "by": "dqn",
+        "seconds": 5.38
+      },
+      {
+        "san": "Bf6",
+        "uci": "e7f6",
+        "by": "resnet",
+        "seconds": 92.55
+      },
+      {
+        "san": "b4",
+        "uci": "b2b4",
+        "by": "dqn",
+        "seconds": 6.21
+      },
+      {
+        "san": "Qd5+",
+        "uci": "f3d5",
+        "by": "resnet",
+        "seconds": 72.67
+      },
+      {
+        "san": "c4",
+        "uci": "c3c4",
+        "by": "dqn",
+        "seconds": 1.59
+      },
+      {
+        "san": "Qxc4+",
+        "uci": "d5c4",
+        "by": "resnet",
+        "seconds": 62.81
+      },
+      {
+        "san": "Kb2",
+        "uci": "a2b2",
+        "by": "dqn",
+        "seconds": 1.02
+      },
+      {
+        "san": "e4+",
+        "uci": "e5e4",
+        "by": "resnet",
+        "seconds": 58.15
+      },
+      {
+        "san": "d4",
+        "uci": "d2d4",
+        "by": "dqn",
+        "seconds": 1.06
+      },
+      {
+        "san": "exd3+",
+        "uci": "e4d3",
+        "by": "resnet",
+        "seconds": 56.05
+      },
+      {
+        "san": "Kb1",
+        "uci": "b2b1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Qb3+",
+        "uci": "c4b3",
+        "by": "resnet",
+        "seconds": 68.7
+      },
+      {
+        "san": "Bb2",
+        "uci": "c1b2",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Re8",
+        "uci": "h8e8",
+        "by": "resnet",
+        "seconds": 32.37
+      },
+      {
+        "san": "Kc1",
+        "uci": "b1c1",
+        "by": "dqn",
+        "seconds": 0.92
+      },
+      {
+        "san": "Re7",
+        "uci": "e8e7",
+        "by": "resnet",
+        "seconds": 70.97
+      },
+      {
+        "san": "Bxf6",
+        "uci": "b2f6",
+        "by": "dqn",
+        "seconds": 5.05
+      },
+      {
+        "san": "Qc2#",
+        "uci": "b3c2",
+        "by": "resnet",
+        "seconds": 48.7
+      }
+    ],
+    "final_fen": "rnb5/pppprkp1/5B2/7p/1P5P/P2p4/2q5/R1K4n w - - 1 26",
+    "pgn": "[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"2\"]\n[White \"dqn\"]\n[Black \"resnet\"]\n[Result \"0-1\"]\n\n1. e4 e5 2. c3 Nf6 3. Qb3 Nxe4 4. Qxf7+ Kxf7 5. Be2 Qg5 6. h3 Qxg2 7. Bf1 Qxf2+ 8. Kd1 Qxf1+ 9. Kc2 Ng3 10. Ne2 Nxh1 11. h4 Qxe2 12. Na3 Bxa3 13. Kb3 Be7 14. Rb1 Qd3 15. Ra1 h5 16. a3 Qf3 17. Ka2 Bf6 18. b4 Qd5+ 19. c4 Qxc4+ 20. Kb2 e4+ 21. d4 exd3+ 22. Kb1 Qb3+ 23. Bb2 Re8 24. Kc1 Re7 25. Bxf6 Qc2# 0-1"
+  },
+  {
+    "game_idx": 4,
+    "white_model": "dqn",
+    "black_model": "resnet",
+    "opening_uci": [
+      "e2e4",
+      "c7c5"
+    ],
+    "num_plies": 38,
+    "termination": "CHECKMATE",
+    "winner": "black",
+    "winner_model": "resnet",
+    "total_seconds": 1638.1,
+    "moves": [
+      {
+        "san": "Qh5",
+        "uci": "d1h5",
+        "by": "dqn",
+        "seconds": 45.93
+      },
+      {
+        "san": "g6",
+        "uci": "g7g6",
+        "by": "resnet",
+        "seconds": 25.85
+      },
+      {
+        "san": "e5",
+        "uci": "e4e5",
+        "by": "dqn",
+        "seconds": 52.96
+      },
+      {
+        "san": "gxh5",
+        "uci": "g6h5",
+        "by": "resnet",
+        "seconds": 30.55
+      },
+      {
+        "san": "h3",
+        "uci": "h2h3",
+        "by": "dqn",
+        "seconds": 29.32
+      },
+      {
+        "san": "Bg7",
+        "uci": "f8g7",
+        "by": "resnet",
+        "seconds": 11.96
+      },
+      {
+        "san": "e6",
+        "uci": "e5e6",
+        "by": "dqn",
+        "seconds": 19.75
+      },
+      {
+        "san": "d5",
+        "uci": "d7d5",
+        "by": "resnet",
+        "seconds": 23.7
+      },
+      {
+        "san": "exf7+",
+        "uci": "e6f7",
+        "by": "dqn",
+        "seconds": 36.09
+      },
+      {
+        "san": "Kxf7",
+        "uci": "e8f7",
+        "by": "resnet",
+        "seconds": 2.63
+      },
+      {
+        "san": "Na3",
+        "uci": "b1a3",
+        "by": "dqn",
+        "seconds": 59.18
+      },
+      {
+        "san": "Nc6",
+        "uci": "b8c6",
+        "by": "resnet",
+        "seconds": 48.96
+      },
+      {
+        "san": "c3",
+        "uci": "c2c3",
+        "by": "dqn",
+        "seconds": 55.99
+      },
+      {
+        "san": "Bf5",
+        "uci": "c8f5",
+        "by": "resnet",
+        "seconds": 52.26
+      },
+      {
+        "san": "Nb5",
+        "uci": "a3b5",
+        "by": "dqn",
+        "seconds": 46.46
+      },
+      {
+        "san": "a6",
+        "uci": "a7a6",
+        "by": "resnet",
+        "seconds": 96.92
+      },
+      {
+        "san": "Nd6+",
+        "uci": "b5d6",
+        "by": "dqn",
+        "seconds": 46.16
+      },
+      {
+        "san": "exd6",
+        "uci": "e7d6",
+        "by": "resnet",
+        "seconds": 10.14
+      },
+      {
+        "san": "a3",
+        "uci": "a2a3",
+        "by": "dqn",
+        "seconds": 21.9
+      },
+      {
+        "san": "Qe7+",
+        "uci": "d8e7",
+        "by": "resnet",
+        "seconds": 75.13
+      },
+      {
+        "san": "Be2",
+        "uci": "f1e2",
+        "by": "dqn",
+        "seconds": 4.69
+      },
+      {
+        "san": "Re8",
+        "uci": "a8e8",
+        "by": "resnet",
+        "seconds": 95.89
+      },
+      {
+        "san": "h4",
+        "uci": "h3h4",
+        "by": "dqn",
+        "seconds": 17.92
+      },
+      {
+        "san": "d4",
+        "uci": "d5d4",
+        "by": "resnet",
+        "seconds": 105.09
+      },
+      {
+        "san": "f3",
+        "uci": "f2f3",
+        "by": "dqn",
+        "seconds": 19.9
+      },
+      {
+        "san": "Qf6",
+        "uci": "e7f6",
+        "by": "resnet",
+        "seconds": 101.14
+      },
+      {
+        "san": "Rb1",
+        "uci": "a1b1",
+        "by": "dqn",
+        "seconds": 24.31
+      },
+      {
+        "san": "d3",
+        "uci": "d4d3",
+        "by": "resnet",
+        "seconds": 84.47
+      },
+      {
+        "san": "b4",
+        "uci": "b2b4",
+        "by": "dqn",
+        "seconds": 14.06
+      },
+      {
+        "san": "Ne5",
+        "uci": "c6e5",
+        "by": "resnet",
+        "seconds": 102.95
+      },
+      {
+        "san": "Rh3",
+        "uci": "h1h3",
+        "by": "dqn",
+        "seconds": 18.56
+      },
+      {
+        "san": "dxe2",
+        "uci": "d3e2",
+        "by": "resnet",
+        "seconds": 115.11
+      },
+      {
+        "san": "d3",
+        "uci": "d2d3",
+        "by": "dqn",
+        "seconds": 19.26
+      },
+      {
+        "san": "Nxd3+",
+        "uci": "e5d3",
+        "by": "resnet",
+        "seconds": 70.57
+      },
+      {
+        "san": "Kd2",
+        "uci": "e1d2",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Qxc3#",
+        "uci": "f6c3",
+        "by": "resnet",
+        "seconds": 52.33
+      }
+    ],
+    "final_fen": "4r1nr/1p3kbp/p2p4/2p2b1p/1P5P/P1qn1P1R/3Kp1P1/1RB3N1 w - - 0 20",
+    "pgn": "[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"4\"]\n[White \"dqn\"]\n[Black \"resnet\"]\n[Result \"0-1\"]\n\n1. e4 c5 2. Qh5 g6 3. e5 gxh5 4. h3 Bg7 5. e6 d5 6. exf7+ Kxf7 7. Na3 Nc6 8. c3 Bf5 9. Nb5 a6 10. Nd6+ exd6 11. a3 Qe7+ 12. Be2 Re8 13. h4 d4 14. f3 Qf6 15. Rb1 d3 16. b4 Ne5 17. Rh3 dxe2 18. d3 Nxd3+ 19. Kd2 Qxc3# 0-1"
+  },
+  {
+    "game_idx": 6,
+    "white_model": "dqn",
+    "black_model": "resnet",
+    "opening_uci": [
+      "c2c4"
+    ],
+    "num_plies": 22,
+    "termination": "CHECKMATE",
+    "winner": "black",
+    "winner_model": "resnet",
+    "total_seconds": 477.7,
+    "moves": [
+      {
+        "san": "Nf6",
+        "uci": "g8f6",
+        "by": "resnet",
+        "seconds": 6.87
+      },
+      {
+        "san": "Qc2",
+        "uci": "d1c2",
+        "by": "dqn",
+        "seconds": 19.34
+      },
+      {
+        "san": "Nc6",
+        "uci": "b8c6",
+        "by": "resnet",
+        "seconds": 19.97
+      },
+      {
+        "san": "c5",
+        "uci": "c4c5",
+        "by": "dqn",
+        "seconds": 38.12
+      },
+      {
+        "san": "Nd4",
+        "uci": "c6d4",
+        "by": "resnet",
+        "seconds": 31.47
+      },
+      {
+        "san": "c6",
+        "uci": "c5c6",
+        "by": "dqn",
+        "seconds": 49.71
+      },
+      {
+        "san": "Nxc2+",
+        "uci": "d4c2",
+        "by": "resnet",
+        "seconds": 41.72
+      },
+      {
+        "san": "Kd1",
+        "uci": "e1d1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Ng4",
+        "uci": "f6g4",
+        "by": "resnet",
+        "seconds": 15.34
+      },
+      {
+        "san": "cxd7+",
+        "uci": "c6d7",
+        "by": "dqn",
+        "seconds": 12.74
+      },
+      {
+        "san": "Qxd7",
+        "uci": "d8d7",
+        "by": "resnet",
+        "seconds": 2.51
+      },
+      {
+        "san": "h3",
+        "uci": "h2h3",
+        "by": "dqn",
+        "seconds": 11.82
+      },
+      {
+        "san": "Nxf2+",
+        "uci": "g4f2",
+        "by": "resnet",
+        "seconds": 33.9
+      },
+      {
+        "san": "Kxc2",
+        "uci": "d1c2",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Qf5+",
+        "uci": "d7f5",
+        "by": "resnet",
+        "seconds": 25.33
+      },
+      {
+        "san": "Kb3",
+        "uci": "c2b3",
+        "by": "dqn",
+        "seconds": 4.42
+      },
+      {
+        "san": "Be6+",
+        "uci": "c8e6",
+        "by": "resnet",
+        "seconds": 50.09
+      },
+      {
+        "san": "Kb4",
+        "uci": "b3b4",
+        "by": "dqn",
+        "seconds": 2.38
+      },
+      {
+        "san": "b6",
+        "uci": "b7b6",
+        "by": "resnet",
+        "seconds": 47.52
+      },
+      {
+        "san": "Ka4",
+        "uci": "b4a4",
+        "by": "dqn",
+        "seconds": 10.09
+      },
+      {
+        "san": "Qa5#",
+        "uci": "f5a5",
+        "by": "resnet",
+        "seconds": 54.35
+      }
+    ],
+    "final_fen": "r3kb1r/p1p1pppp/1p2b3/q7/K7/7P/PP1PPnP1/RNB2BNR w kq - 2 12",
+    "pgn": "[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"6\"]\n[White \"dqn\"]\n[Black \"resnet\"]\n[Result \"0-1\"]\n\n1. c4 Nf6 2. Qc2 Nc6 3. c5 Nd4 4. c6 Nxc2+ 5. Kd1 Ng4 6. cxd7+ Qxd7 7. h3 Nxf2+ 8. Kxc2 Qf5+ 9. Kb3 Be6+ 10. Kb4 b6 11. Ka4 Qa5# 0-1"
+  },
+  {
+    "game_idx": 8,
+    "white_model": "dqn",
+    "black_model": "resnet",
+    "opening_uci": [
+      "e2e4",
+      "c7c6"
+    ],
+    "num_plies": 52,
+    "termination": "FIVEFOLD_REPETITION",
+    "winner": "draw",
+    "winner_model": null,
+    "total_seconds": 642.0,
+    "moves": [
+      {
+        "san": "h3",
+        "uci": "h2h3",
+        "by": "dqn",
+        "seconds": 32.15
+      },
+      {
+        "san": "Qb6",
+        "uci": "d8b6",
+        "by": "resnet",
+        "seconds": 6.29
+      },
+      {
+        "san": "Qh5",
+        "uci": "d1h5",
+        "by": "dqn",
+        "seconds": 17.86
+      },
+      {
+        "san": "Nf6",
+        "uci": "g8f6",
+        "by": "resnet",
+        "seconds": 24.45
+      },
+      {
+        "san": "Qxf7+",
+        "uci": "h5f7",
+        "by": "dqn",
+        "seconds": 32.64
+      },
+      {
+        "san": "Kxf7",
+        "uci": "e8f7",
+        "by": "resnet",
+        "seconds": 2.03
+      },
+      {
+        "san": "e5",
+        "uci": "e4e5",
+        "by": "dqn",
+        "seconds": 10.81
+      },
+      {
+        "san": "Qc5",
+        "uci": "b6c5",
+        "by": "resnet",
+        "seconds": 17.41
+      },
+      {
+        "san": "e6+",
+        "uci": "e5e6",
+        "by": "dqn",
+        "seconds": 12.73
+      },
+      {
+        "san": "dxe6",
+        "uci": "d7e6",
+        "by": "resnet",
+        "seconds": 2.76
+      },
+      {
+        "san": "b3",
+        "uci": "b2b3",
+        "by": "dqn",
+        "seconds": 12.19
+      },
+      {
+        "san": "Qe5+",
+        "uci": "c5e5",
+        "by": "resnet",
+        "seconds": 25.5
+      },
+      {
+        "san": "Be2",
+        "uci": "f1e2",
+        "by": "dqn",
+        "seconds": 1.48
+      },
+      {
+        "san": "Qxa1",
+        "uci": "e5a1",
+        "by": "resnet",
+        "seconds": 32.55
+      },
+      {
+        "san": "c3",
+        "uci": "c2c3",
+        "by": "dqn",
+        "seconds": 13.82
+      },
+      {
+        "san": "Nbd7",
+        "uci": "b8d7",
+        "by": "resnet",
+        "seconds": 14.72
+      },
+      {
+        "san": "a4",
+        "uci": "a2a4",
+        "by": "dqn",
+        "seconds": 19.07
+      },
+      {
+        "san": "Nc5",
+        "uci": "d7c5",
+        "by": "resnet",
+        "seconds": 22.07
+      },
+      {
+        "san": "Bh5+",
+        "uci": "e2h5",
+        "by": "dqn",
+        "seconds": 16.58
+      },
+      {
+        "san": "Kg8",
+        "uci": "f7g8",
+        "by": "resnet",
+        "seconds": 1.74
+      },
+      {
+        "san": "Bf7+",
+        "uci": "h5f7",
+        "by": "dqn",
+        "seconds": 13.69
+      },
+      {
+        "san": "Kxf7",
+        "uci": "g8f7",
+        "by": "resnet",
+        "seconds": 0.0
+      },
+      {
+        "san": "Kf1",
+        "uci": "e1f1",
+        "by": "dqn",
+        "seconds": 11.45
+      },
+      {
+        "san": "Qxb1",
+        "uci": "a1b1",
+        "by": "resnet",
+        "seconds": 24.06
+      },
+      {
+        "san": "Ke1",
+        "uci": "f1e1",
+        "by": "dqn",
+        "seconds": 8.94
+      },
+      {
+        "san": "Qxc1+",
+        "uci": "b1c1",
+        "by": "resnet",
+        "seconds": 25.99
+      },
+      {
+        "san": "Ke2",
+        "uci": "e1e2",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Nfe4",
+        "uci": "f6e4",
+        "by": "resnet",
+        "seconds": 29.02
+      },
+      {
+        "san": "c4",
+        "uci": "c3c4",
+        "by": "dqn",
+        "seconds": 5.69
+      },
+      {
+        "san": "Qxd2+",
+        "uci": "c1d2",
+        "by": "resnet",
+        "seconds": 24.98
+      },
+      {
+        "san": "Kf3",
+        "uci": "e2f3",
+        "by": "dqn",
+        "seconds": 0.81
+      },
+      {
+        "san": "Qxf2+",
+        "uci": "d2f2",
+        "by": "resnet",
+        "seconds": 24.37
+      },
+      {
+        "san": "Kg4",
+        "uci": "f3g4",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Kg6",
+        "uci": "f7g6",
+        "by": "resnet",
+        "seconds": 23.83
+      },
+      {
+        "san": "Rh2",
+        "uci": "h1h2",
+        "by": "dqn",
+        "seconds": 1.25
+      },
+      {
+        "san": "Rg8",
+        "uci": "h8g8",
+        "by": "resnet",
+        "seconds": 15.62
+      },
+      {
+        "san": "Rh1",
+        "uci": "h2h1",
+        "by": "dqn",
+        "seconds": 1.37
+      },
+      {
+        "san": "Rh8",
+        "uci": "g8h8",
+        "by": "resnet",
+        "seconds": 14.36
+      },
+      {
+        "san": "Rh2",
+        "uci": "h1h2",
+        "by": "dqn",
+        "seconds": 1.25
+      },
+      {
+        "san": "Rg8",
+        "uci": "h8g8",
+        "by": "resnet",
+        "seconds": 15.66
+      },
+      {
+        "san": "Rh1",
+        "uci": "h2h1",
+        "by": "dqn",
+        "seconds": 1.37
+      },
+      {
+        "san": "Rh8",
+        "uci": "g8h8",
+        "by": "resnet",
+        "seconds": 14.3
+      },
+      {
+        "san": "Rh2",
+        "uci": "h1h2",
+        "by": "dqn",
+        "seconds": 1.25
+      },
+      {
+        "san": "Rg8",
+        "uci": "h8g8",
+        "by": "resnet",
+        "seconds": 15.59
+      },
+      {
+        "san": "Rh1",
+        "uci": "h2h1",
+        "by": "dqn",
+        "seconds": 1.36
+      },
+      {
+        "san": "Rh8",
+        "uci": "g8h8",
+        "by": "resnet",
+        "seconds": 14.3
+      },
+      {
+        "san": "Rh2",
+        "uci": "h1h2",
+        "by": "dqn",
+        "seconds": 1.25
+      },
+      {
+        "san": "Rg8",
+        "uci": "h8g8",
+        "by": "resnet",
+        "seconds": 15.67
+      },
+      {
+        "san": "Rh1",
+        "uci": "h2h1",
+        "by": "dqn",
+        "seconds": 1.36
+      },
+      {
+        "san": "Rh8",
+        "uci": "g8h8",
+        "by": "resnet",
+        "seconds": 14.33
+      }
+    ],
+    "final_fen": "r1b2b1r/pp2p1pp/2p1p1k1/2n5/P1P1n1K1/1P5P/5qP1/6NR w - - 18 27",
+    "pgn": "[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"8\"]\n[White \"dqn\"]\n[Black \"resnet\"]\n[Result \"1/2-1/2\"]\n\n1. e4 c6 2. h3 Qb6 3. Qh5 Nf6 4. Qxf7+ Kxf7 5. e5 Qc5 6. e6+ dxe6 7. b3 Qe5+ 8. Be2 Qxa1 9. c3 Nbd7 10. a4 Nc5 11. Bh5+ Kg8 12. Bf7+ Kxf7 13. Kf1 Qxb1 14. Ke1 Qxc1+ 15. Ke2 Nfe4 16. c4 Qxd2+ 17. Kf3 Qxf2+ 18. Kg4 Kg6 19. Rh2 Rg8 20. Rh1 Rh8 21. Rh2 Rg8 22. Rh1 Rh8 23. Rh2 Rg8 24. Rh1 Rh8 25. Rh2 Rg8 26. Rh1 Rh8 1/2-1/2"
+  },
+  {
+    "game_idx": 10,
+    "white_model": "dqn",
+    "black_model": "resnet",
+    "opening_uci": [
+      "g1f3",
+      "d7d5",
+      "g2g3"
+    ],
+    "num_plies": 28,
+    "termination": "CHECKMATE",
+    "winner": "black",
+    "winner_model": "resnet",
+    "total_seconds": 125221.9,
+    "moves": [
+      {
+        "san": "e5",
+        "uci": "e7e5",
+        "by": "resnet",
+        "seconds": 12.15
+      },
+      {
+        "san": "b3",
+        "uci": "b2b3",
+        "by": "dqn",
+        "seconds": 9052.92
+      },
+      {
+        "san": "e4",
+        "uci": "e5e4",
+        "by": "resnet",
+        "seconds": 115513.42
+      },
+      {
+        "san": "Ng5",
+        "uci": "f3g5",
+        "by": "dqn",
+        "seconds": 11.77
+      },
+      {
+        "san": "Qxg5",
+        "uci": "d8g5",
+        "by": "resnet",
+        "seconds": 26.96
+      },
+      {
+        "san": "Bb2",
+        "uci": "c1b2",
+        "by": "dqn",
+        "seconds": 15.81
+      },
+      {
+        "san": "Bd6",
+        "uci": "f8d6",
+        "by": "resnet",
+        "seconds": 43.47
+      },
+      {
+        "san": "Qc1",
+        "uci": "d1c1",
+        "by": "dqn",
+        "seconds": 21.46
+      },
+      {
+        "san": "Nh6",
+        "uci": "g8h6",
+        "by": "resnet",
+        "seconds": 44.12
+      },
+      {
+        "san": "a3",
+        "uci": "a2a3",
+        "by": "dqn",
+        "seconds": 21.6
+      },
+      {
+        "san": "Ng4",
+        "uci": "h6g4",
+        "by": "resnet",
+        "seconds": 56.78
+      },
+      {
+        "san": "f4",
+        "uci": "f2f4",
+        "by": "dqn",
+        "seconds": 21.53
+      },
+      {
+        "san": "exf3",
+        "uci": "e4f3",
+        "by": "resnet",
+        "seconds": 44.65
+      },
+      {
+        "san": "Kd1",
+        "uci": "e1d1",
+        "by": "dqn",
+        "seconds": 17.37
+      },
+      {
+        "san": "Nf2+",
+        "uci": "g4f2",
+        "by": "resnet",
+        "seconds": 54.19
+      },
+      {
+        "san": "Ke1",
+        "uci": "d1e1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Nxh1",
+        "uci": "f2h1",
+        "by": "resnet",
+        "seconds": 63.13
+      },
+      {
+        "san": "h4",
+        "uci": "h2h4",
+        "by": "dqn",
+        "seconds": 19.47
+      },
+      {
+        "san": "Qxg3+",
+        "uci": "g5g3",
+        "by": "resnet",
+        "seconds": 44.86
+      },
+      {
+        "san": "Kd1",
+        "uci": "e1d1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Nf2+",
+        "uci": "h1f2",
+        "by": "resnet",
+        "seconds": 31.04
+      },
+      {
+        "san": "Ke1",
+        "uci": "d1e1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Nd3+",
+        "uci": "f2d3",
+        "by": "resnet",
+        "seconds": 45.53
+      },
+      {
+        "san": "Kd1",
+        "uci": "e1d1",
+        "by": "dqn",
+        "seconds": 0.0
+      },
+      {
+        "san": "Qe1#",
+        "uci": "g3e1",
+        "by": "resnet",
+        "seconds": 59.73
+      }
+    ],
+    "final_fen": "rnb1k2r/ppp2ppp/3b4/3p4/7P/PP1n1p2/1BPPP3/RNQKqB2 w kq - 6 15",
+    "pgn": "[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"10\"]\n[White \"dqn\"]\n[Black \"resnet\"]\n[Result \"0-1\"]\n\n1. Nf3 d5 2. g3 e5 3. b3 e4 4. Ng5 Qxg5 5. Bb2 Bd6 6. Qc1 Nh6 7. a3 Ng4 8. f4 exf3 9. Kd1 Nf2+ 10. Ke1 Nxh1 11. h4 Qxg3+ 12. Kd1 Nf2+ 13. Ke1 Nd3+ 14. Kd1 Qe1# 0-1"
+  }
+]
